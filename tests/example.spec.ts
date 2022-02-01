@@ -1,4 +1,5 @@
 import { test, expect } from '@playwright/test';
+import {generateRandString} from "./utils/rand-string";
 
 async function createEmployee(page: any, str: string) {
   await page.fill(`input[name='name']`, str);
@@ -14,10 +15,10 @@ async function createEmployee(page: any, str: string) {
 
 test.describe('Team M', () => {
 
-  test.beforeEach(async ({page}) => {
-    await page.goto('https://m.hr.dmerej.info/reset_db');
-    await page.click('.btn-danger');
-  });
+  // test.beforeEach(async ({page}) => {
+  //   await page.goto('https://m.hr.dmerej.info/reset_db');
+  //   await page.click('.btn-danger');
+  // });
 
   test('Have the right title', async ({ page }) => {
     await page.goto('https://m.hr.dmerej.info/');
@@ -32,15 +33,34 @@ test.describe('Team M', () => {
     await expect(page).toHaveURL('https://m.hr.dmerej.info/add_employee');
   });
 
-  test('can create new employee', async ({page}) => {
-    await page.goto('https://m.hr.dmerej.info/add_employee');
+  test.describe('Managing employees', async () => {
 
-    const randString = 'test' + (Math.floor(Math.random() * 999)).toString();
+    test('can create new employee', async ({page}) => {
+      await page.goto('https://m.hr.dmerej.info/add_employee');
 
-    await createEmployee(page, randString);
+      const randString: string = generateRandString('add');
 
-    await expect(page).toHaveURL('https://m.hr.dmerej.info/employees');
-    expect(await page.content()).toContain(randString);
+      await createEmployee(page, randString);
+
+      await expect(page).toHaveURL('https://m.hr.dmerej.info/employees');
+      expect(await page.content()).toContain(randString);
+    });
+
+    test('can edit basic info of an employee', async ({page}) => {
+      await page.goto('https://m.hr.dmerej.info/employees');
+      await page.click('.btn-primary');
+      await page.click(`text=' Update basic info '`);
+
+      const newRandString: string = generateRandString('edit');
+
+      await page.fill(`input[name='name']`, newRandString);
+      await page.fill(`input[name='email']`,  newRandString + '@test.test');
+
+      await page.click('.btn-primary');
+
+      await expect(page).toHaveURL('https://m.hr.dmerej.info/employees');
+      expect(await page.content()).toContain(newRandString);
+    });
   });
 });
 
