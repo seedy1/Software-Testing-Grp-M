@@ -1,5 +1,17 @@
 import { test, expect } from '@playwright/test';
 
+async function createEmployee(page: any, str: string) {
+  await page.fill(`input[name='name']`, str);
+  await page.fill(`input[name='email']`, str + '@test.test');
+  await page.fill(`input[name='address_line1']`, str);
+  await page.fill(`input[name='address_line2']`, str);
+  await page.fill(`input[name='city']`, str);
+  await page.fill(`input[name='zip_code']`, '92130');
+  await page.fill(`input[name='hiring_date']`, '01/10/2012');
+  await page.fill(`input[name='job_title']`, str);
+  await page.click('.btn-primary');
+}
+
 test.describe('Team M', () => {
 
   test.beforeEach(async ({page}) => {
@@ -25,15 +37,7 @@ test.describe('Team M', () => {
 
     const randString = 'test' + (Math.floor(Math.random() * 999)).toString();
 
-    await page.fill(`input[name='name']`, randString);
-    await page.fill(`input[name='email']`, randString + '@test.test');
-    await page.fill(`input[name='address_line1']`, randString);
-    await page.fill(`input[name='address_line2']`, randString);
-    await page.fill(`input[name='city']`, randString);
-    await page.fill(`input[name='zip_code']`, '92130');
-    await page.fill(`input[name='hiring_date']`, '01/10/2012');
-    await page.fill(`input[name='job_title']`, randString);
-    await page.click('.btn-primary');
+    await createEmployee(page, randString);
 
     await expect(page).toHaveURL('https://m.hr.dmerej.info/employees');
     expect(await page.content()).toContain(randString);
