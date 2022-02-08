@@ -1,5 +1,5 @@
 import { test, expect } from '@playwright/test';
-  
+
 
 test.describe('Team M - navigation test', () => {
 
@@ -14,7 +14,6 @@ test.describe('Team M - navigation test', () => {
 
         // TODO: we should have only one expect per test - remove later
         await expect(page).toHaveURL('https://m.hr.dmerej.info/employees');
-        await expect( page.locator('.table') ).toContainText("name");
     });
 
     // add employees
@@ -23,10 +22,10 @@ test.describe('Team M - navigation test', () => {
 
         // TODO: we should have only one expect per test - remove later
         await expect(page).toHaveURL('https://m.hr.dmerej.info/add_employee');
-        // await expect(page).toHaveTitle("Add new employee");        
+        // await expect(page).toHaveTitle("Add new employee");
     });
-    
-    
+
+
     // list teams
     test('Navigate to list teams page', async ({ page }) => {
 
@@ -43,7 +42,7 @@ test.describe('Team M - navigation test', () => {
 
     });
 
-    
+
     // back to home
     test('Navigate to back to home from teams page', async ({ page }) => {
 
