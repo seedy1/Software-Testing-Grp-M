@@ -1,3 +1,8 @@
-# Software Testing Group M
+# End to end testing using playwright
 
- - end to end testing using playwright
+## Getting started
+### Install dependencies
+Run `npm install`
+
+### Run end to end tests
+Run `npx playwright test`
