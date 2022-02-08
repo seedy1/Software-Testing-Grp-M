@@ -119,6 +119,42 @@ test.describe('Managing employees', async () => {
     expect(await page.inputValue(`input[name='zip_code']`)).toEqual(editRand);
   });
 
+  test('can edit hiring date of an employee', async ({page}) => {
+    await page.goto('https://m.hr.dmerej.info/employees');
+
+    await page.click('.btn-primary  >> nth=-1');
+    await page.click(`text=' Update legal info '`);
+
+    const newRandString: string = generateRandString('edit');
+
+    await page.fill(`input[name='hiring_date']`, newRandString);
+
+    await page.click('.btn-primary');
+
+    await page.click('.btn-primary  >> nth=-1');
+    await page.click(`text=' Update legal info '`);
+
+    expect(await page.inputValue(`input[name='hiring_date']`)).toEqual(newRandString);
+  });
+
+  test('can edit job title of an employee', async ({page}) => {
+    await page.goto('https://m.hr.dmerej.info/employees');
+
+    await page.click('.btn-primary  >> nth=-1');
+    await page.click(`text=' Update legal info '`);
+
+    const newRandString: string = generateRandString('edit');
+
+    await page.fill(`input[name='job_title']`, newRandString);
+
+    await page.click('.btn-primary');
+
+    await page.click('.btn-primary  >> nth=-1');
+    await page.click(`text=' Update legal info '`);
+
+    expect(await page.inputValue(`input[name='job_title']`)).toEqual(newRandString);
+  });
+
   test('can delete an employee', async ({page}) => {
     await page.goto('https://m.hr.dmerej.info/employees');
 
