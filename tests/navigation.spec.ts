@@ -1,7 +1,7 @@
 import { test, expect } from '@playwright/test';
   
 
-test.describe('Team M - navigation test', () => {
+test.describe('Test site Navigation', () => {
 
     test.beforeEach(async ({ page }) => {
         // Go to the starting url before each test.
