@@ -155,6 +155,17 @@ test.describe('Managing employees', async () => {
     expect(await page.inputValue(`input[name='job_title']`)).toEqual(newRandString);
   });
 
+  test('can promote an employee as a manager', async ({page}) => {
+    await page.goto('https://m.hr.dmerej.info/employees');
+
+    await page.click('.btn-primary  >> nth=-1');
+    await page.click(`text='Promote as manager'`);
+
+    await page.click('.btn-primary');
+
+      expect(await page.content()).toContain('<strong>yes</strong>');
+  });
+
   test('can delete an employee', async ({page}) => {
     await page.goto('https://m.hr.dmerej.info/employees');
 
